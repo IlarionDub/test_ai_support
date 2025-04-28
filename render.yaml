@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: good-site
+    env: python
+    plan: free
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: bash start.sh
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: OPENAI_API_KEY
+        sync: false

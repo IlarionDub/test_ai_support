@@ -48,7 +48,7 @@ navigator.mediaDevices.getUserMedia({
 })
 .then(stream => {
     video.srcObject = stream;
-    video.style.transform = 'scale(2.5)';
+    video.style.transform = 'scale(2.0)';
 })
 .catch(err => {
     console.error("Помилка доступу до камери: ", err);

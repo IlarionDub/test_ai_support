@@ -6,7 +6,7 @@ navigator.mediaDevices.getUserMedia({ video: { facingMode: { exact: "environment
     .then(stream => {
         video.srcObject = stream;
 
-        video.style.transform = 'scale(1.9)';
+        video.style.transform = 'scale(2.5)';
     })
     .catch(err => {
         console.error("Помилка доступу до камери: ", err);

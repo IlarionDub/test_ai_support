@@ -117,16 +117,21 @@ async def upload_image(file: UploadFile = File(...)):
     }
 
     payload = {
-        "model": "gpt-4o",
+        #"model": "gpt-4o",
+        "model": "ft:gpt-4o-2024-08-06:gdkpwqer::BRQdHSWq",
+        
         "messages": [
             {
                 "role": "system",
-                "content": "Ty si expert na testy, odpovedaj co najkratsie."
+                #"content": "Ty si expert na testy, odpovedaj co najkratsie."
+                "content": "Ty si expert na cloudové technológie. Odpovedaj na otázky čo najkratšie a najpresnejšie."
             },
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": "Na obrazku je otazka a moznosti. Vyber spravnu odpoved a napis ju co najkratsie."},
+                    #{"type": "text", "text": "Na obrazku je otazka a moznosti. Vyber spravnu odpoved a napis ju co najkratsie."},
+                    {"type": "text", "text": "Na obrazku je otázka a možnosti. Vyber správnu odpoveď alebo viaceré odpovede. Ak je potrebné zoradiť možnosti, použi čísla (1 - prvá, 2 - druhá atď.). Odpovedz čo najkratšie – iba písmenami (A-B-C) alebo číslami (1-2-3)."},
+
                     {"type": "image_url", "image_url": {"url": data_uri}}
                 ]
             }

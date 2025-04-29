@@ -66,7 +66,22 @@ navigator.mediaDevices.getUserMedia({
 });
 
 snap.addEventListener('click', async () => {
-    responseText.textContent = "Čakám na odpoveď...";  // ОЧИСТИТИ/ОНОВИТИ поле перед відправкою
+    let loading = true;
+    responseText.textContent = "Čakám na odpoveď";
+
+    // Анімація крапок
+    const interval = setInterval(() => {
+        if (!loading) {
+            clearInterval(interval);
+            return;
+        }
+        if (responseText.textContent.endsWith("...")) {
+            responseText.textContent = "Čakám na odpoveď";
+        } else {
+            responseText.textContent += ".";
+        }
+    }, 500); // кожні 0.5 секунди додаємо крапку
+
     const canvas = document.createElement('canvas');
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -82,13 +97,15 @@ snap.addEventListener('click', async () => {
     });
 
     const result = await response.json();
+
+    loading = false; // Зупиняємо анімацію крапок
+
     if (result.answer) {
         responseText.textContent = result.answer;
     } else {
-        responseText.textContent = "Помилка отримання відповіді.";
+        responseText.textContent = "Помилка отримання odpovede.";
     }
 });
-
 
 
 

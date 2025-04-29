@@ -130,8 +130,7 @@ async def upload_image(file: UploadFile = File(...)):
                 "role": "user",
                 "content": [
                     #{"type": "text", "text": "Na obrazku je otazka a moznosti. Vyber spravnu odpoved a napis ju co najkratsie."},
-                    {"type": "text", "text": "Prečítaj si otázku a daj krátku a jasnú odpoveď."},
-
+                    {"type": "text", "text": "Prečítaj si otázku a odpovedz čo najkratšie a najpresnejšie podľa typu úlohy: Ak je len jedna správna možnosť, napíš len písmeno alebo číslo. Ak je viac správnych odpovedí, napíš ich cez čiarku (napr. A,C alebo 1,3). Ak ide o pravda/nepravda, napíš len jedno slovo: „pravda“ alebo „nepravda“. Ak treba zoradiť možnosti, napíš čísla v poradí cez čiarku (napr. 2,3,1,4), pričom 1 je najvyššie a 4 najnižšie, ak nie sú inak označené. Nevysvetľuj, len odpovedz."}
                     {"type": "image_url", "image_url": {"url": data_uri}}
                 ]
             }

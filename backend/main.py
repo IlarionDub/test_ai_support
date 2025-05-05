@@ -57,7 +57,7 @@ async def upload_image(file: UploadFile = File(...)):
             {
                 "type": "image_url",
                 "image_url": {
-                    "url": "data_uri"
+                    "url": data_uri
                 }
             }
         ]

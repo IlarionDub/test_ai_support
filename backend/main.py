@@ -47,23 +47,38 @@ async def upload_image(file: UploadFile = File(...)):
         "role": "system",
         "content": "Ty si expert na riešenie rôznych otázok. Odpovedaj vždy čo najkratšie, najpresnejšie a bez zbytočných vysvetlení."
     },
-    {
-        "role": "user",
-        "content": [
-            {
-                "type": "text",
-                # "text": "Prečítaj si otázku a odpovedz podľa typu úlohy: Ak je len jedna správna možnosť, napíš len písmeno alebo číslo. Ak je viac správnych odpovedí, napíš ich cez čiarku (napr. A,C alebo 1,3). Ak ide o pravda/nepravda, napíš len: „pravda“ alebo „nepravda“. Ak treba zoradiť možnosti, napíš čísla v poradí cez čiarku (napr. 2,3,1,4), pričom 1 je najvyššie, ak nie je uvedené inak. Nezdôvodňuj, len odpovedz."
-               "text": "Prečítaj si otázku a odpovedz podľa typu úlohy: mal by sa sa snažiť vykonať úlohu správne, ale čím kratšia je úloha"
+    # {
+    #     "role": "user",
+    #     "content": [
+    #         {
+    #             "type": "text",
+    #             # "text": "Prečítaj si otázku a odpovedz podľa typu úlohy: Ak je len jedna správna možnosť, napíš len písmeno alebo číslo. Ak je viac správnych odpovedí, napíš ich cez čiarku (napr. A,C alebo 1,3). Ak ide o pravda/nepravda, napíš len: „pravda“ alebo „nepravda“. Ak treba zoradiť možnosti, napíš čísla v poradí cez čiarku (napr. 2,3,1,4), pričom 1 je najvyššie, ak nie je uvedené inak. Nezdôvodňuj, len odpovedz."
+    #            "text": "Prečítaj si otázku a odpovedz podľa typu úlohy: mal by sa sa snažiť vykonať úlohu správne, ale čím kratšia je úloha"
 
-            },
-            {
-                "type": "image_url",
-                "image_url": {
-                    "url": data_uri
-                }
+    #         },
+    #         {
+    #             "type": "image_url",
+    #             "image_url": {
+    #                 "url": data_uri
+    #             }
+    #         }
+    #     ]
+    # }
+{
+    "role": "user",
+    "content": [
+        {"type": "text", "text": ""Prečítaj si otázku a odpovedz podľa typu úlohy: mal by sa sa snažiť vykonať úlohu správne, ale čím kratšia je úloha"},
+        {
+            "type": "image_url",
+            "image_url": {
+                "url": data_uri,
+                "detail": "high"
             }
-        ]
-    }
+        }
+    ]
+}
+
+          
 ],
         "max_tokens": 1000
     }

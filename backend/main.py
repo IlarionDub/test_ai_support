@@ -39,8 +39,8 @@ async def upload_image(file: UploadFile = File(...)):
     }
 
     payload = {
-        #"model": "gpt-4o",
-        "model": "ft:gpt-4o-2024-08-06:gdkpwqer::BRQdHSWq",
+        "model": "gpt-4o",
+        # "model": "ft:gpt-4o-2024-08-06:gdkpwqer::BRQdHSWq",
         
       "messages": [
     {
@@ -52,7 +52,9 @@ async def upload_image(file: UploadFile = File(...)):
         "content": [
             {
                 "type": "text",
-                "text": "Prečítaj si otázku a odpovedz podľa typu úlohy: Ak je len jedna správna možnosť, napíš len písmeno alebo číslo. Ak je viac správnych odpovedí, napíš ich cez čiarku (napr. A,C alebo 1,3). Ak ide o pravda/nepravda, napíš len: „pravda“ alebo „nepravda“. Ak treba zoradiť možnosti, napíš čísla v poradí cez čiarku (napr. 2,3,1,4), pričom 1 je najvyššie, ak nie je uvedené inak. Nezdôvodňuj, len odpovedz."
+                # "text": "Prečítaj si otázku a odpovedz podľa typu úlohy: Ak je len jedna správna možnosť, napíš len písmeno alebo číslo. Ak je viac správnych odpovedí, napíš ich cez čiarku (napr. A,C alebo 1,3). Ak ide o pravda/nepravda, napíš len: „pravda“ alebo „nepravda“. Ak treba zoradiť možnosti, napíš čísla v poradí cez čiarku (napr. 2,3,1,4), pričom 1 je najvyššie, ak nie je uvedené inak. Nezdôvodňuj, len odpovedz."
+               "text": "Prečítaj si otázku a odpovedz podľa typu úlohy: mal by sa sa snažiť vykonať úlohu správne, ale čím kratšia je úloha"
+
             },
             {
                 "type": "image_url",
@@ -63,7 +65,7 @@ async def upload_image(file: UploadFile = File(...)):
         ]
     }
 ],
-        "max_tokens": 300
+        "max_tokens": 1000
     }
 
     response = requests.post(OPENAI_API_URL, headers=headers, json=payload)

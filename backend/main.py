@@ -1,81 +1,3 @@
-# from fastapi import FastAPI, UploadFile, File
-# from fastapi.responses import HTMLResponse, FileResponse
-# from fastapi.staticfiles import StaticFiles
-# from fastapi.middleware.cors import CORSMiddleware
-# from PIL import Image
-# import pytesseract
-# import requests
-# import io
-# import os
-# from dotenv import load_dotenv
-#
-# load_dotenv()
-#
-# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-# OPENAI_API_URL = "https://api.openai.com/v1/chat/completions"
-#
-# app = FastAPI()
-#
-# # Доступ з фронтенду
-# app.add_middleware(
-#     CORSMiddleware,
-#     allow_origins=["*"],
-#     allow_credentials=True,
-#     allow_methods=["*"],
-#     allow_headers=["*"],
-# )
-#
-# # Статика
-# app.mount("/static", StaticFiles(directory="backend/frontend"), name="static")
-#
-# @app.get("/", response_class=HTMLResponse)
-# async def get_index():
-#     return FileResponse("backend/frontend/index.html")
-#
-# @app.post("/upload/")
-# async def upload_image(file: UploadFile = File(...)):
-#     try:
-#         image = Image.open(io.BytesIO(await file.read()))
-#         text = pytesseract.image_to_string(image, lang="eng+slk")
-#
-#         prompt = f"""
-# Ty si expert na riesenie testov. Otazka a moznosti su:
-#
-# {text}
-#
-# Vyber spravnu odpoved a napis ju co najkratsie.
-# """
-#
-#         headers = {
-#             "Authorization": f"Bearer {OPENAI_API_KEY}",
-#             "Content-Type": "application/json"
-#         }
-#
-#         payload = {
-#             "model": "gpt-4o",
-#             "messages": [
-#                 {"role": "system", "content": "Ty si expert na testy, odpovedaj vzdy co najkratsie."},
-#                 {"role": "user", "content": prompt}
-#             ],
-#             "temperature": 0.2,
-#             "max_tokens": 200
-#         }
-#
-#         response = requests.post(OPENAI_API_URL, headers=headers, json=payload)
-#
-#         if response.status_code == 200:
-#             result = response.json()
-#             answer = result["choices"][0]["message"]["content"].strip()
-#             return {"answer": answer}
-#         else:
-#             print("Помилка від OpenAI:", response.text)
-#             return {"error": "Failed to get response from OpenAI", "details": response.text}
-#
-#     except Exception as e:
-#         print("Внутрішня помилка сервера:", str(e))
-#         return {"error": "Server error", "details": str(e)}
-
-
 from fastapi import FastAPI, UploadFile, File
 from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -120,21 +42,27 @@ async def upload_image(file: UploadFile = File(...)):
         #"model": "gpt-4o",
         "model": "ft:gpt-4o-2024-08-06:gdkpwqer::BRQdHSWq",
         
-        "messages": [
+      "messages": [
+    {
+        "role": "system",
+        "content": "Ty si expert na riešenie rôznych otázok. Odpovedaj vždy čo najkratšie, najpresnejšie a bez zbytočných vysvetlení."
+    },
+    {
+        "role": "user",
+        "content": [
             {
-                "role": "system",
-                #"content": "Ty si expert na testy, odpovedaj co najkratsie."
-                "content": "Ty si expert na cloudové technológie. Odpovedaj na otázky čo najkratšie a najpresnejšie."
+                "type": "text",
+                "text": "Prečítaj si otázku a odpovedz podľa typu úlohy: Ak je len jedna správna možnosť, napíš len písmeno alebo číslo. Ak je viac správnych odpovedí, napíš ich cez čiarku (napr. A,C alebo 1,3). Ak ide o pravda/nepravda, napíš len: „pravda“ alebo „nepravda“. Ak treba zoradiť možnosti, napíš čísla v poradí cez čiarku (napr. 2,3,1,4), pričom 1 je najvyššie, ak nie je uvedené inak. Nezdôvodňuj, len odpovedz."
             },
             {
-                "role": "user",
-                "content": [
-                    #{"type": "text", "text": "Na obrazku je otazka a moznosti. Vyber spravnu odpoved a napis ju co najkratsie."},
-                    {"type": "text", "text": "Prečítaj si otázku a odpovedz čo najkratšie a najpresnejšie podľa typu úlohy: Ak je len jedna správna možnosť, napíš len písmeno alebo číslo. Ak je viac správnych odpovedí, napíš ich cez čiarku (napr. A,C alebo 1,3). Ak ide o pravda/nepravda, napíš len jedno slovo: „pravda“ alebo „nepravda“. Ak treba zoradiť možnosti, napíš čísla v poradí cez čiarku (napr. 2,3,1,4), pričom 1 je najvyššie a 4 najnižšie, ak nie sú inak označené. Nevysvetľuj, len odpovedz."},
-                    {"type": "image_url", "image_url": {"url": data_uri}}
-                ]
+                "type": "image_url",
+                "image_url": {
+                    "url": "data_uri"
+                }
             }
-        ],
+        ]
+    }
+],
         "max_tokens": 300
     }
 
